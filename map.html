@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Recuerdos ❤️</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #fdf6f9);
+      color: #333;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 30px;
+      font-size: 2.5em;
+      color: #d63384;
+    }
+
+    p.subtitulo {
+      font-style: italic;
+      font-size: 1.2em;
+      color: #6c757d;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 600px;
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border: 4px solid #f8bbd0;
+    }
+
+      .brillo {
+    animation: brilloSuave 1.5s infinite;
+  }
+
+    @keyframes brilloSuave {
+      0%, 100% {
+        filter: drop-shadow(0 0 0px gold);
+      }
+      50% {
+        filter: drop-shadow(0 0 10px gold);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Mapa de Recuerdos ✨</h2>
+  <p class="subtitulo">Cada lugar guarda algo que me une a vos, Ari 💌</p>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([-34.6037, -58.3816], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const corazonIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38]
+    });
+
+    const casitaIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/69/69524.png',
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38]
+    });
+
+    const estrellaIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/616/616489.png',
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38]
+    });
+
+    const besoIcon = L.icon({
+      iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38]
+    });
+
+  const anilloIcon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/599/599708.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+    className: 'brillo' // 💫 para que brille
+  });
+
+  // Agrega el marcador con un retraso de 2 segundos (2000 ms)
+  setTimeout(() => {
+    L.marker([-34.516368, -58.468998], { icon: anilloIcon }).addTo(map)
+      .bindPopup(`
+        <b>Un lugar especial</b><br>
+        Bajo este cielo, entre calles que nunca caminaste...<br>
+        hay algo que quiero preguntarte cuando estés acá conmigo 🌙✨<br><br>
+        <i>“A veces los sueños no se dicen. Se esperan.”</i>
+      `);
+  }, 10000);
+
+
+
+    const lugares = [
+      {
+        coords: [-34.586365, -58.416401],
+        mensaje: '<b>Primer beso</b><br>Club Araoz, Araoz 2424, CABA',
+        icon: besoIcon
+      },
+      {
+        coords: [-34.599554, -58.397957],
+        mensaje: '<b>Primera cita</b><br>Plaza Houssay, Av. Córdoba 2100, CABA',
+        icon: corazonIcon
+      },
+      {
+        coords: [-34.601175, -58.397609],
+        mensaje: '<b>Tu ubicación actual</b><br>Viamonte 2128, CABA',
+        icon: estrellaIcon
+      },
+      {
+        coords: [44.768324, 10.319354],
+        mensaje: '<b>Mi ubicación actual</b><br>Parma, Via Bruno Schreiber 9',
+        icon: estrellaIcon
+      },
+      {
+        coords: [-34.650583, -60.478839],
+        mensaje: '<b>Casa de tu familia</b><br>Duberty 22, Chacabuco',
+        icon: casitaIcon
+      },
+      {
+        coords: [-24.843932, -65.502201],
+        mensaje: '<b>Mi casa</b><br>Ruta 51 km 2 1/2, Salta',
+        icon: casitaIcon
+      },
+      {
+        coords: [-34.592687, -58.404249],
+        mensaje: '<b>Donde vive Fran</b><br>Anchorena 1587, 3b.',
+        icon: casitaIcon
+      }
+    ];
+
+    lugares.forEach(lugar => {
+      L.marker(lugar.coords, { icon: lugar.icon }).addTo(map)
+        .bindPopup(lugar.mensaje);
+    });
+  </script>
+</body>
+</html>
